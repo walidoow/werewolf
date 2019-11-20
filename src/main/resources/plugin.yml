@@ -1,0 +1,4 @@
+name: Werevolf
+version: ${project.version}
+main: com.walidoow.werewolf.Werewolf
+authors: [Walidoow]
