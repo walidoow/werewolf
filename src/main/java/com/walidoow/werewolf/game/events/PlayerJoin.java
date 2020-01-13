@@ -1,12 +1,12 @@
-package com.walidoow.werewolf.listeners;
+package com.walidoow.werewolf.game.events;
 
 import com.walidoow.werewolf.Werewolf;
 import com.walidoow.werewolf.game.GameManager;
 import com.walidoow.werewolf.game.GameProperties;
 import com.walidoow.werewolf.game.TimerStart;
-import com.walidoow.werewolf.player.PlayerManager;
-import com.walidoow.werewolf.player.VampPlayer;
-import com.walidoow.werewolf.tools.FastBoard;
+import com.walidoow.werewolf.game.player.PlayerManager;
+import com.walidoow.werewolf.game.player.WolfPlayer;
+import com.walidoow.werewolf.utils.FastBoard;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
@@ -37,14 +37,14 @@ public class PlayerJoin implements Listener {
          * Join when the server is waiting for players
          */
         if (gameManager.getGameState().equals(GameManager.GameState.WAITING_FOR_PLAYERS)) {
-            playerManager.addVamPlayer(new VampPlayer(player));
+            playerManager.addVamPlayer(new WolfPlayer(player));
 
             //Send join message
             Bukkit.broadcastMessage("§6[Loup-Garou]§b " + player.getDisplayName() + " §7a rejoint la partie. §a(" +
-                    playerManager.getVampPlayers().size() + "/" + gameProperties.getMaxPlayers() + ")");
+                    playerManager.getWolfPlayers().size() + "/" + gameProperties.getMaxPlayers() + ")");
 
             //Launch timer if enough players
-            if (playerManager.getVampPlayers().size() == gameProperties.getMinPlayers()) {
+            if (playerManager.getWolfPlayers().size() == gameProperties.getMinPlayers()) {
                 gameManager.setTimerStart(new TimerStart(5));
                 gameManager.getTimerStart().runTaskTimer(werewolf, 0L, 20L);
             }

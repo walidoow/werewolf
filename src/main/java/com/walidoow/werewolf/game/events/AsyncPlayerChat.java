@@ -1,4 +1,4 @@
-package com.walidoow.werewolf.listeners;
+package com.walidoow.werewolf.game.events;
 
 import com.walidoow.werewolf.Werewolf;
 import com.walidoow.werewolf.game.GameManager;

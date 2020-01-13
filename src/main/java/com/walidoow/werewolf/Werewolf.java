@@ -1,9 +1,9 @@
 package com.walidoow.werewolf;
 
 import com.walidoow.werewolf.game.GameManager;
-import com.walidoow.werewolf.listeners.*;
-import com.walidoow.werewolf.player.PlayerManager;
-import com.walidoow.werewolf.scoreboard.Board;
+import com.walidoow.werewolf.game.events.*;
+import com.walidoow.werewolf.game.player.PlayerManager;
+import com.walidoow.werewolf.game.scoreboard.Board;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 

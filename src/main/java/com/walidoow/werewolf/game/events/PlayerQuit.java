@@ -1,10 +1,10 @@
-package com.walidoow.werewolf.listeners;
+package com.walidoow.werewolf.game.events;
 
 import com.walidoow.werewolf.Werewolf;
 import com.walidoow.werewolf.game.GameManager;
 import com.walidoow.werewolf.game.GameProperties;
-import com.walidoow.werewolf.player.PlayerManager;
-import com.walidoow.werewolf.tools.FastBoard;
+import com.walidoow.werewolf.game.player.PlayerManager;
+import com.walidoow.werewolf.utils.FastBoard;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -35,10 +35,10 @@ public class PlayerQuit implements Listener {
 
             //Send join message
             Bukkit.broadcastMessage("§6[Loup-Garou]§b " + player.getDisplayName() + " §ca quitté la partie. §a(" +
-                    playerManager.getVampPlayers().size() + "/" + gameProperties.getMaxPlayers() + ")");
+                    playerManager.getWolfPlayers().size() + "/" + gameProperties.getMaxPlayers() + ")");
 
             //Cancel timer when not enough players
-            if (playerManager.getVampPlayers().size() < gameProperties.getMinPlayers()) {
+            if (playerManager.getWolfPlayers().size() < gameProperties.getMinPlayers()) {
                 if (!gameManager.hasTimerStart())
                     return;
                 gameManager.getTimerStart().cancel();

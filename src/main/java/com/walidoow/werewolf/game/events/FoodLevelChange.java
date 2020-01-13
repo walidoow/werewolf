@@ -1,4 +1,4 @@
-package com.walidoow.werewolf.listeners;
+package com.walidoow.werewolf.game.events;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

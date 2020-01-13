@@ -1,4 +1,4 @@
-package com.walidoow.werewolf.tools;
+package com.walidoow.werewolf.utils;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;

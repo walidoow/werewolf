@@ -1,9 +1,9 @@
 package com.walidoow.werewolf.game;
 
 import com.walidoow.werewolf.Werewolf;
-import com.walidoow.werewolf.player.PlayerManager;
-import com.walidoow.werewolf.player.Role;
-import com.walidoow.werewolf.player.VampPlayer;
+import com.walidoow.werewolf.game.player.PlayerManager;
+import com.walidoow.werewolf.game.player.Role;
+import com.walidoow.werewolf.game.player.WolfPlayer;
 import org.bukkit.entity.Player;
 
 import java.util.*;
@@ -16,6 +16,7 @@ public class GameManager {
     private TimerStart timerStart;
     private int round = 1;
     private Map<Role, Integer> amountOfRoles = new HashMap<>();
+    private UUID[] cupids = new UUID[2];
 
     public GameManager() {
         gameProperties = new GameProperties();
@@ -91,13 +92,31 @@ public class GameManager {
         else amountOfRoles.put(role, amount);
     }
 
+    public UUID[] getCupids() {
+        return cupids;
+    }
+
+    public void setCupids(UUID[] cupids) {
+        this.cupids = cupids;
+    }
+
+    public void setCupid(int index, UUID uuid) {
+        this.cupids[index] = uuid;
+    }
+
+    public boolean hasCupid() {
+        if (this.cupids[0] != null & this.cupids[1] != null)
+            return true;
+        return false;
+    }
+
     public void startGame() {
         Werewolf werewolf = Werewolf.get();
         PlayerManager playerManager = werewolf.getPlayerManager();
-        int numberOfPlayers = playerManager.getVampPlayers().size();
+        int numberOfPlayers = playerManager.getWolfPlayers().size();
         int numberOfWerewolves = Math.round(((3F / 11F) * numberOfPlayers));
         int numberOfSimpleVillagers = (int) Math.ceil(((2F / 11F) * numberOfPlayers));
-        Collections.shuffle(PlayerManager.getVampPlayers());
+        Collections.shuffle(PlayerManager.getWolfPlayers());
 
         /*
          * Set the roles of the players
@@ -139,42 +158,13 @@ public class GameManager {
     }
 
     private void revealRoleDescription() {
-
-        for (VampPlayer vampPlayer : PlayerManager.getVampPlayers()) {
-            if (vampPlayer.getOfflinePlayer().isOnline()) {
-                Player p = vampPlayer.getOfflinePlayer().getPlayer();
-
-                switch (vampPlayer.getRole()) {
-                    case WEREWOLF: {
-                        p.sendMessage("§a§l∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎");
-                        p.sendMessage(" ");
-                        p.sendMessage("\uD83D\uDCDC §aMon rôle: §6§lLOUP-GAROU");
-                        p.sendMessage(" ");
-                        p.sendMessage("§fVous devez éliminer tous les villageois !");
-                        p.sendMessage("§fDurant la nuit, les loups-garous se réunissent");
-                        p.sendMessage("§fpour voter qui va être éliminer.");
-                        p.sendMessage(" ");
-                        break;
-                    }
-                    case VILLAGER: {
-                        p.sendMessage("§a§l∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎");
-                        p.sendMessage(" ");
-                        p.sendMessage("\uD83D\uDCDC §aMon rôle: §6§lVILLAGEOIS");
-                        p.sendMessage(" ");
-                        p.sendMessage("§fVous devez éliminer tous les loups-garous !");
-                        p.sendMessage("§fVotre parole est votre seul pouvoir de persuasion");
-                        p.sendMessage("§fpour les éliminer. Restez à l’affût d’indice et\n");
-                        p.sendMessage("§fidentifier les coupables !");
-                        break;
-                    }
-                }
-            }
-        }
-
+        for (WolfPlayer wolfPlayer : PlayerManager.getWolfPlayers())
+            if (wolfPlayer.getOfflinePlayer().isOnline())
+                Role.sendDescription(wolfPlayer.getOfflinePlayer().getPlayer(), wolfPlayer.getRole());
     }
 
     private void setRole(int index, Role role) {
-        PlayerManager.getVampPlayers().get(index).setRole(role);
+        PlayerManager.getWolfPlayers().get(index).setRole(role);
     }
 
     public enum GameState {

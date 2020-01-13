@@ -1,11 +1,11 @@
-package com.walidoow.werewolf.player;
+package com.walidoow.werewolf.game.player;
 
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
-public class VampPlayer {
+public class WolfPlayer {
 
     private OfflinePlayer offlinePlayer;
     private UUID uuid;
@@ -13,12 +13,12 @@ public class VampPlayer {
     private boolean eliminated;
     private boolean spectator;
 
-    public VampPlayer(Player player) {
+    public WolfPlayer(Player player) {
         this.offlinePlayer = player;
         this.uuid = player.getUniqueId();
     }
 
-    public VampPlayer(Player player, boolean spectator) {
+    public WolfPlayer(Player player, boolean spectator) {
         this.offlinePlayer = player;
         this.uuid = player.getUniqueId();
         this.spectator = spectator;

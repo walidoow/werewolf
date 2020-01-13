@@ -7,11 +7,13 @@ public class GameProperties {
     }
 
     public int getMinPlayers() {
-        return 1;
+        return 3;
     }
 
     public String getWorldName() {
         return "world";
     }
+
+    //TODO: Add a maximum number of cupid lovers
 
 }
